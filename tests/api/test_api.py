@@ -68,7 +68,7 @@ class TestHeroAPI:
     @allure.description("Checking an incorrect parameter")
     @pytest.mark.parametrize("gender, has_job", [
         ("Other", True), ("Other", False), ("Male", "Error"), ("Male", 10), ("Male", 0), ("Male", -10),
-        ("", True), ("", False), (True, 10), (False, 10), ("", ""), (0, 0)
+        ("", True), ("", False), (True, 10), (False, 10), ("", ""), (0, 0), ("$%!", True), ("Male", "$%!")
     ])
     def test_param_error(self, entity_service: EntityService, gender, has_job):
         """Test for checking the param error."""
