@@ -1,5 +1,3 @@
-import logging
-
 import pytest
 
 from config.config_api.config import Config

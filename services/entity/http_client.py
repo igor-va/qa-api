@@ -1,5 +1,3 @@
-from typing import Any
-
 import requests
 
 from config.config_api.config import Config

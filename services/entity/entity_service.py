@@ -1,10 +1,8 @@
-from requests import Response
-
 from services.entity.api_client import APIClient
 
 
 class EntityService:
-    """High-level service for entity operations with deserialization."""
+    """High-level service for entity operations."""
 
     def __init__(self, api_client: APIClient) -> None:
         """Initializes the service with the provided API client."""
@@ -12,9 +10,13 @@ class EntityService:
 
     def get_highest_hero(self, gender, has_job):
         """
-        Функция, которая принимает на вход пол и наличие работы (булевое значение)
-        и возвращает по этим критериям самого высокого героя.
+        A function that takes the entrance of the gender and the availability of work (boolean value)
+        and he returns according to these criteria of the highest hero.
+
+        :param gender: "Male", "Female", "-"
+        :param has_job: True, False
         """
+
         response = self.api_client.get_all_entities()
         heroes = response.json()
 
@@ -25,7 +27,7 @@ class EntityService:
             # try:
             # print(hero["name"])
             if hero['appearance']['gender'] == gender:
-                if has_job and hero['work']['occupation'] != "-":
+                if has_job == True and hero['work']['occupation'] != "-":
                     height_cm = hero['appearance']['height'][1]
                     if height_cm != "-" and height_cm != "0 kg":
                         try:
@@ -35,7 +37,7 @@ class EntityService:
                         if height > max_height:
                             max_height = height
                             highest_hero = hero
-                if not has_job and hero['work']['occupation'] == "-":
+                if has_job == False and hero['work']['occupation'] == "-":
                     height_cm = hero['appearance']['height'][1]
                     if height_cm != "-":
                         try:

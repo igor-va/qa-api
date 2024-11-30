@@ -1,5 +1,5 @@
 class Config:
-    """This class contains the API endpoints for the service."""
+    """This class contains basic configurations."""
 
-    BASE_URL = "https://akabab.github.io/superhero-api/api"  # change to your ngrok url
+    BASE_URL = "https://akabab.github.io/superhero-api/api"
     TIMEOUT = 10
