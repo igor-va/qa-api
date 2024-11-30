@@ -8,48 +8,36 @@ class EntityService:
         """Initializes the service with the provided API client."""
         self.api_client = api_client
 
-    def get_highest_hero(self, gender, has_job):
+    def get_hero_highest(self, gender, has_job):
         """
         A function that takes the entrance of the gender and the availability of work (boolean value)
         and he returns according to these criteria of the highest hero.
 
         :param gender: "Male", "Female", "-"
         :param has_job: True, False
+        :return: The highest hero that matches the criteria, or None if no hero matches
         """
+        try:
+            response = self.api_client.get_all_entities()
+            heroes = response.json()
 
-        response = self.api_client.get_all_entities()
-        heroes = response.json()
+            hero_highest = None
+            hero_max_height = 0
 
-        highest_hero = None
-        max_height = 0
-
-        for hero in heroes:
-            # try:
-            # print(hero["name"])
-            if hero['appearance']['gender'] == gender:
-                if has_job == True and hero['work']['occupation'] != "-":
-                    height_cm = hero['appearance']['height'][1]
-                    if height_cm != "-" and height_cm != "0 kg":
-                        try:
-                            height = float(height_cm.replace("cm", ""))
-                        except:
-                            height = float(height_cm.replace("meters", "")) * 100
-                        if height > max_height:
-                            max_height = height
-                            highest_hero = hero
-                if has_job == False and hero['work']['occupation'] == "-":
-                    height_cm = hero['appearance']['height'][1]
-                    if height_cm != "-":
-                        try:
-                            height = float(height_cm.replace("cm", ""))
-                        except:
-                            height = float(height_cm.replace("meters", "")) * 100
-                        if height > max_height:
-                            max_height = height
-                            highest_hero = hero
-            # except:
-            #     continue
-
-        # print(highest_hero["name"])
-        # print(max_height)
-        return highest_hero
+            for hero in heroes:
+                if hero['appearance']['gender'] == gender:
+                    if (has_job is True and hero['work']['occupation'] != "-") or \
+                            (has_job is False and hero['work']['occupation'] == "-"):
+                        hero_api_height = hero['appearance']['height'][1]
+                        hero_cur_height = 0
+                        if "cm" in hero_api_height:
+                            hero_cur_height = float(hero_api_height.replace(" cm", ""))
+                        elif "meters" in hero_api_height:
+                            hero_cur_height = float(hero_api_height.replace(" meters", "")) * 100
+                        if hero_cur_height > hero_max_height:
+                            hero_max_height = hero_cur_height
+                            hero_highest = hero
+            return hero_highest
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None  # Return None explicitly in case of error
