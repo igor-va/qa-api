@@ -1,4 +1,4 @@
-# Проект автотестирования UI сайта "Barleone"
+# Проект автотестирования API веб-сервиса "superhero-api"
 
 
 ## Оглавление
@@ -11,27 +11,18 @@
 
 
 ## 1. Описание проекта
-Проект представляет собой учебный набор автоматизированных UI тестов веб-сайта "https://barleone.ru/"
+Проект представляет собой набор автоматизированных API тестов веб-сервиса "https://akabab.github.io/superhero-api/"
+
 
 
 ## 2. Структура проекта
 ```
-qa-edu-barleone/
+qa-api/
 │
-├── Configurations/        # Конфигурационные файлы
-├── Info/                  # Информационные файлы
-├── Locators/              # Локаторы
-├── Logs/                  # Логи
-├── Pages/                 # Страницы POM
-├── Reports/               # Отчеты
-├── Screenshots/           # Скриншоты
-├── TestData/              # Тестовые данные
-├── Tests/                 # Тестовые модули
-│   └── conftest.py        # Фикстуры PyTest
-├── Utilities/             # Вспомогательные утилиты
+├── сonfig/                # Конфигурационные файлы
+├── services/              # Сервисы для работы с API
+├── tests/                 # Тестовые модули
 ├── .gitignore             # Исключенные файлы
-├── docker-compose.yaml    # Инструкции для Docker Compose
-├── Dockerfile             # Инструкции для Docker Image
 ├── pytest.ini             # Конфигурации PyTest
 ├── README.md              # Описание проекта
 └── requirements.txt       # Зависимости проекта
@@ -39,15 +30,12 @@ qa-edu-barleone/
 
 
 ## 3. Основные функции
-- Открытие основных страниц сайта
-- Добавление товаров в корзину
-- Авторизации в личном кабинете
+- Получение самого высокого супергероя в зависимости от пола и наличие работы
 
 
 ## 4. Технологии и инструменты
 - Python 3.12+
 - Pytest
-- Selenium
 - Allure
 
 
@@ -55,8 +43,8 @@ qa-edu-barleone/
 1. Убедитесь, что у вас установлен Python 3.12+
 2. Склонируйте репозиторий:
    ```
-   https://github.com/igor-va/qa-edu-barleone.git
-   cd qa-edu-barleone
+   https://github.com/igor-va/qa-api.git
+   cd qa-api
    ```
 3. Создайте виртуальное окружение и активируйте его:
    ```
@@ -71,12 +59,12 @@ qa-edu-barleone/
 
 
 ## 6. Запуск тестов
-Для запуска всех тестов:
+Для запуска API тестов:
 ```
-pytest
+pytest -m api
 ```
 
-Для генерации Allure-отчета:
+Для генерации Allure-отчета (allure уже установлен):
 ```
 pytest --alluredir AllureResults
 allure serve AllureResults

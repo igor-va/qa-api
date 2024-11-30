@@ -29,11 +29,12 @@ class EntityService:
                     if (has_job is True and hero['work']['occupation'] != "-") or \
                             (has_job is False and hero['work']['occupation'] == "-"):
                         hero_api_height = hero['appearance']['height'][1]
-                        hero_cur_height = 0
                         if "cm" in hero_api_height:
                             hero_cur_height = float(hero_api_height.replace(" cm", ""))
                         elif "meters" in hero_api_height:
                             hero_cur_height = float(hero_api_height.replace(" meters", "")) * 100
+                        else:
+                            continue
                         if hero_cur_height > hero_max_height:
                             hero_max_height = hero_cur_height
                             hero_highest = hero
