@@ -15,4 +15,3 @@ def api_client() -> APIClient:
 def entity_service(api_client: APIClient) -> EntityService:
     """Fixture for creating an EntityService instance."""
     return EntityService(api_client)
-
